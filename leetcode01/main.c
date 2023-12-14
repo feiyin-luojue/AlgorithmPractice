@@ -4,14 +4,14 @@
 #include <time.h>
 
 #define BUFFER_SIZE5 5
-#define RAND_NUMS10 9
-#define RAND_NUMS20 19
+#define RAND_NUMS10 10
+#define RAND_NUMS20 20
 
 int main(int argc, char const *argv[])
 {
     /*Example 1:
         随机生成数字 1-10，写入元素个数为 5 的数组 array[BUFFER_SIZE5]，
-        随机生成数字 2-20，作为目标值 target
+        随机生成数字 1-20，作为目标值 target
         判断数组array中是否有两个元素的和 sum 等于 target
         如果有，则返回 这两个元素的索引
     */
@@ -27,7 +27,7 @@ int main(int argc, char const *argv[])
         printf("array[%d] = %d\n", idx, temp);
     }
 
-    int target = rand() % RAND_NUMS20 + 2;
+    int target = rand() % RAND_NUMS20 + 1;
     printf("target = %d\n", target);
 
     int flag = 0;
