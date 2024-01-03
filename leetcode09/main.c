@@ -29,6 +29,7 @@ int estimateArrayIfLegitimate(char *array)      //判断字符串是否合法，
         }
         else
         {
+            #if 0
             if (*ptr == ')')
             {
                 dynamicArrayStackTop(symbolStack, (void**)&temp);
@@ -71,8 +72,23 @@ int estimateArrayIfLegitimate(char *array)      //判断字符串是否合法，
                 }
             }
             ptr++;
+        #else       //优化
+            dynamicArrayStackTop(symbolStack, (void**)&temp);
+            if (*ptr == ')' && *temp == '(' || *ptr == ']' && *temp == '[' || *ptr == '}' && *temp == '{')
+            {
+                dynamicArrayStackPop(symbolStack);
+                ptr++;
+            }
+            else
+            {
+                dynamicArrayStackDestroy(symbolStack);
+                return NOLEGITIMATE;
+            }
+        #endif
         }
     }
+
+#if 0
     if (dynamicArrayStackIsEmpty(symbolStack) == 1)
     {
         dynamicArrayStackDestroy(symbolStack);
@@ -81,8 +97,13 @@ int estimateArrayIfLegitimate(char *array)      //判断字符串是否合法，
     else
     {
         dynamicArrayStackDestroy(symbolStack);
-        return NOLEGITIMATE;
+        return NOLEGITIMATE; 
     }
+#else   //优化
+    int stackIfEmpty = dynamicArrayStackIsEmpty(symbolStack);
+    dynamicArrayStackDestroy(symbolStack);
+    return stackIfEmpty == 1 ? LEGITIMATE : NOLEGITIMATE;
+#endif
 }
 
 int printfifLegitimats(char *array)       //判断并显示字符串合法性的判断结果
