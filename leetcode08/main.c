@@ -1,3 +1,4 @@
+/*  将 " I   am  from china    " 翻转为 "    china from  am   I "    */
 #include <stdio.h>
 #include <string.h>
 
@@ -24,14 +25,11 @@ void overturnDataBetweenTowPointer(char *left, char *right)
     char *tempright = right;
     while (*templeft != *tempright)
     {
-        // char tempchar = *tempArray;
-        // *tempArray = *arrayEnd;
-        // *arrayEnd = tempchar;
         changChar(templeft, tempright);
-        // if (templeft == tempright)
-        // {
-        //     break;
-        // }
+        if (templeft == tempright)
+        {
+            break;
+        }
         templeft++;
         if (templeft == tempright)
         {
@@ -53,12 +51,9 @@ void exchangePosition(char *array)
 
     char *arrayEnd = array;
     while (*(++arrayEnd + 1) != '\0');  //指针后移，找到最后一个 非\0 的元素
-/*
+
     while (1)
     {
-        // char tempchar = *tempArray;
-        // *tempArray = *arrayEnd;
-        // *arrayEnd = tempchar;
         changChar(tempArray, arrayEnd);
         tempArray++;
         if (tempArray == arrayEnd)
@@ -71,16 +66,14 @@ void exchangePosition(char *array)
             break;
         }
     }
-*/
     overturnDataBetweenTowPointer(tempArray, arrayEnd);
 }
-
 
 /*  给定一个字符串
     array[] = " I   am  from china    "
     实现字符串内单词的翻转，得到
     newArray[] = "    china from  am   I "*/
-void *changeWord(char *array, int sizeofArray)
+void changeWord(char *array, int sizeofArray)
 {
    exchangePosition(array);
    char *tempArray = array;
@@ -93,7 +86,6 @@ void *changeWord(char *array, int sizeofArray)
         else
         {
             char *thisWordHead = tempArray;
-
             char *thisWordEnd = tempArray;
             while (*(thisWordEnd + 1) != ' ')
             {
@@ -103,14 +95,10 @@ void *changeWord(char *array, int sizeofArray)
             if (*(thisWordEnd + 1) != '\0')
             {
                 tempArray = thisWordEnd + 1;
-            } 
+            }
         }
+    }
 }
-}
-
-
-
-
 
 int main(int argc, char const *argv[])
 {
