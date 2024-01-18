@@ -14,13 +14,7 @@ enum STATUS_CODE
     INVALID_ACCESS,
 };
 
-void cont()
-{
-    static int n = 1;
-    printf("n = %d\n", n++);
-}
-
-int printNodeData(void *node)
+int printNodeData(void *node)   //钩子函数，用于遍历链表中结点的数据
 {
     DoubleLinkNode *tempNode = (DoubleLinkNode *)node;
     int *temp = (int *)&(tempNode->data);
@@ -53,11 +47,10 @@ DoubleLinkList* mergeTwoLinkList(DoubleLinkList* list1, DoubleLinkList * list2)
     }
     
     
-    DoubleLinkNode *travelNode = merge->head->next;
+    DoubleLinkNode *travelNode = merge->head->next;     //主链中 将要被用于连接下一个新结点的位置
 
-
-    DoubleLinkNode *travelNodeRemaining = merge->head->next;
-    DoubleLinkNode *anotherRemaining = anotherlist->head->next;
+    DoubleLinkNode *travelNodeRemaining = merge->head->next;    //主链中 被断开的位置
+    DoubleLinkNode *anotherRemaining = anotherlist->head->next; //被连接到主链的位置
 
     int lenth1 = 0;
     int lenth2 = 0;
@@ -81,17 +74,10 @@ DoubleLinkList* mergeTwoLinkList(DoubleLinkList* list1, DoubleLinkList * list2)
         travelNode = anotherRemaining;
         anotherRemaining = travelNodeRemaining;
     }
-    travelNode->next = anotherRemaining;
+    travelNode->next = anotherRemaining;    //将剩下的最后一个结点连接到主链
     anotherRemaining->prev = travelNode;
     return merge;
 }
-
-int printBasicData(void *arg)
-{
-    int data = *(int *)arg;
-    printf("data:%d\n", data);
-}
-
 
 int main(int argc, char const *argv[])
 {
@@ -125,6 +111,7 @@ int main(int argc, char const *argv[])
     putchar(10);
 
     DoubleLinkList *merge = mergeTwoLinkList(list1, list2);
+    printf("merge: ");
     DoubleLinkListForeach(merge, printNodeData);
     putchar(10);
 
